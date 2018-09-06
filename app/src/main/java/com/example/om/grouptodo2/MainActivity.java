@@ -21,7 +21,16 @@ public class MainActivity extends AppCompatActivity {
         // Write a message to the database
 
         DatabaseReference todosRef = FirebaseDatabase.getInstance().getReference("todos");
+        String key = todosRef.child("title").push().getKey();
+        Todo todo = new Todo("歌を歌うを歌う",true);
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, todo.toMap());
+        todosRef.updateChildren(map);
 
+        //todosRef.child("01").child("title").setValue("はみがき");
+        //todosRef.setValue("04");
+        //todosRef.child("04").setValue("title");
+        //todosRef.push({"01":{"title","おかいもの"}});
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Read from the database
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             return hashmap;
         }
     }
+
 
 
 }
