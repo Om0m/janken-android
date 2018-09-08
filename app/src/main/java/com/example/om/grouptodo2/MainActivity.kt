@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val map = HashMap<String?, Any>()
 
         val btn1 :Button= findViewById(R.id.bt1)
-
+        val btn2 :Button= findViewById(R.id.bt2)
 
 
         //todosRef.child("01").child("title").setValue("はみがき");
@@ -49,18 +49,31 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "map is: " + map)
         }
 
+        btn2.setOnClickListener{
+            todosRef.setValue("todos")
+            map.clear()
+            todosRef.updateChildren(map)
+        }
+
         // Read from the database
         todosRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                snapshot.childrenCount
                 for (dataSnapshot in snapshot.children) {
                     val key = dataSnapshot.key
                     val title = dataSnapshot.child("title").value as String?
                     val isDone = dataSnapshot.child("isDone").value as Boolean?
+                    val tv3 = findViewById<TextView>(R.id.tv3)
+                    val tv4 = findViewById<TextView>(R.id.tv4)
+                    tv3.setText(title)
+                    tv4.setText(isDone.toString())
                     Log.d(TAG, "title is: " + title)
                     Log.d(TAG, "isdone is: " + isDone)
-
+                    val todo = Todo(title, isDone)
+                    map[key] = todo.toMap()
+                    Log.d(TAG, "map is: " + map)
                     // このforループで、Todoごとのkey, title, isDoneが取得できているので、
                     // Todoクラスを利用し、Hashmapに追加するなどして保存する。
                 }
@@ -73,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    inner class Todo(val title: String, isDone: Boolean?) {
+    inner class Todo(val title: String?, isDone: Boolean?) {
         var isDone: Boolean? = null
             private set
 
