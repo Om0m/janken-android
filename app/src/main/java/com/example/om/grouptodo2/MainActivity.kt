@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Write a message to the database
 
-        val todosRef = FirebaseDatabase.getInstance().getReference("todos")
+        var todosRef = FirebaseDatabase.getInstance().getReference("todos")
 
         val map = HashMap<String?, Any>()
 
@@ -38,12 +38,15 @@ class MainActivity : AppCompatActivity() {
 
 
         btn1.setOnClickListener{
+            todosRef= FirebaseDatabase.getInstance().getReference("todos")
+            val txt = "jajaja"
             val tv1 = findViewById<EditText>(R.id.tv1) as EditText?
             val tv2 = findViewById<EditText>(R.id.tv2) as EditText?
             val str = tv1?.text.toString()
             val bool = tv2?.text.toString()
-            val key = todosRef.child("title").push().key
-            val todo = Todo(str, bool.toBoolean())
+            val timestamp = System.currentTimeMillis() / 1000
+            val key = todosRef.child(txt).key
+            val todo = Todo(timestamp,str, bool.toBoolean())
             map[key] = todo.toMap()
             todosRef.updateChildren(map)
             Log.d(TAG, "map is: " + map)
@@ -60,9 +63,10 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                snapshot.childrenCount
+
                 for (dataSnapshot in snapshot.children) {
                     val key = dataSnapshot.key
+                    val timestamp = dataSnapshot.child("timestamp").value as Long?
                     val title = dataSnapshot.child("title").value as String?
                     val isDone = dataSnapshot.child("isDone").value as Boolean?
                     val tv3 = findViewById<TextView>(R.id.tv3)
@@ -71,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     tv4.setText(isDone.toString())
                     Log.d(TAG, "title is: " + title)
                     Log.d(TAG, "isdone is: " + isDone)
-                    val todo = Todo(title, isDone)
+                    val todo = Todo(timestamp,title, isDone)
                     map[key] = todo.toMap()
                     Log.d(TAG, "map is: " + map)
                     // このforループで、Todoごとのkey, title, isDoneが取得できているので、
@@ -83,10 +87,12 @@ class MainActivity : AppCompatActivity() {
                 // Failed to read value
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
+
+
         })
     }
 
-    inner class Todo(val title: String?, isDone: Boolean?) {
+    inner class Todo(val timestamp: Long?,val title: String?, isDone: Boolean?) {
         var isDone: Boolean? = null
             private set
 
@@ -101,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         @Exclude
         fun toMap(): Map<String, Any?> {
             val hashmap = HashMap<String, Any?>()
+            hashmap["timestamp"] = timestamp
             hashmap["title"] = title
             hashmap["isDone"] = this.isDone
             return hashmap
