@@ -69,6 +69,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Delete!!" />
+            <EditText
+                android:id="@+id/editname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="testroom" />
+            <Button
+                android:id="@+id/btmake"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="部屋を作る" />
+            <Button
+                android:id="@+id/btenter"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="部屋に入る" />
 
         </LinearLayout>
     </LinearLayout>
