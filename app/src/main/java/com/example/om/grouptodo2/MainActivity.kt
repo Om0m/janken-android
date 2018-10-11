@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         val map = HashMap<String?, Any>()
 
-        val btn1 :Button= findViewById(R.id.bt1)
-        val btn2 :Button= findViewById(R.id.bt2)
         val btnMake :Button= findViewById(R.id.btmake)
         val btnEnter :Button= findViewById(R.id.btenter)
 
@@ -42,31 +40,16 @@ class MainActivity : AppCompatActivity() {
         //todosRef.push({"01",{"title","おかいもの"}});
 
 
-        btn1.setOnClickListener{
-            todosRef= FirebaseDatabase.getInstance().getReference("todos")
-            val txt = "jajaja"
-            val tv1 = findViewById<EditText>(R.id.tv1) as EditText?
-            val tv2 = findViewById<EditText>(R.id.tv2) as EditText?
-            val str = tv1?.text.toString()
-            val bool = tv2?.text.toString()
-            val timestamp = System.currentTimeMillis() / 1000
-            val key = todosRef.child(txt).key
-            val todo = Todo(timestamp,str, bool.toBoolean())
-            map[key] = todo.toMap()
-            todosRef.updateChildren(map)
-            Log.d(TAG, "map is: " + map)
-        }
-
-        btn2.setOnClickListener{
-            todosRef.setValue("todos")
-            map.clear()
-            todosRef.updateChildren(map)
-        }
-
         btnMake.setOnClickListener{
             Log.d(TAG, "btnmake pressed")
             val intent = Intent(this,MakeroomActivity::class.java)
             intent.putExtra(KEY,editname.text.toString())
+            startActivity(intent)
+        }
+
+        btnEnter.setOnClickListener{
+            val intent = Intent(this,EnterroomActivity::class.java)
+            intent.putExtra(KEY2,editname.text.toString())
             startActivity(intent)
         }
 
@@ -129,6 +112,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private val FIREBASE_URL = "https://grouptodo-4234b.firebaseio.com"
         const val KEY = "com.example.om.grouptodo2-toMakeroomActivity"
+        const val KEY2 = "com.example.om.grouptodo2-toEnterroomActivity"
     }
 
 

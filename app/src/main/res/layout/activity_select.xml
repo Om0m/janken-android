@@ -6,4 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".SelectActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/userList"
+            android:layout_width="wrap_content"
+            android:layout_height="280dp"
+            android:dividerHeight="8dp"
+            tools:dividerHeight="9dp">
+
+        </ListView>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="138dp">
+
+            <RadioButton
+                android:id="@+id/radio_Rock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="グー" />
+
+            <RadioButton
+                android:id="@+id/radio_Scissors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="チョキ" />
+
+            <RadioButton
+                android:id="@+id/radio_Paper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="パー" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/bt_Confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="確定" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

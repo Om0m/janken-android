@@ -25,7 +25,7 @@
             app:layout_constraintVertical_bias="0.2" />
 
         <EditText
-            android:id="@+id/ed_roomname"
+            android:id="@+id/ed_roomname_make"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

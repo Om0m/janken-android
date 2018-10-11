@@ -13,6 +13,68 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/editname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Input your name"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btmake"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="部屋を作る" />
+
+            <Button
+                android:id="@+id/btenter"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="部屋に入る" />
+
+            <EditText
+                android:id="@+id/tv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="isDone"
+                tools:layout_editor_absoluteX="94dp"
+                tools:layout_editor_absoluteY="251dp" />
+
+            <Button
+                android:id="@+id/bt1"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Push!!" />
+
+            <EditText
+                android:id="@+id/tv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="title" />
+
+            <Button
+                android:id="@+id/bt2"
+                style="@android:style/Animation.Activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete!!" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="115dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,64 +94,6 @@
                 android:text="TextView" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <EditText
-                android:id="@+id/tv1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="title" />
-
-            <EditText
-                android:id="@+id/tv2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="isDone"
-                tools:layout_editor_absoluteX="94dp"
-                tools:layout_editor_absoluteY="251dp" />
-
-            <Button
-                android:id="@+id/bt1"
-                style="@android:style/Animation.Activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Push!!" />
-
-            <Button
-                android:id="@+id/bt2"
-                style="@android:style/Animation.Activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Delete!!" />
-            <EditText
-                android:id="@+id/editname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="testroom" />
-            <Button
-                android:id="@+id/btmake"
-                style="@android:style/Animation.Activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="部屋を作る" />
-            <Button
-                android:id="@+id/btenter"
-                style="@android:style/Animation.Activity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="部屋に入る" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
