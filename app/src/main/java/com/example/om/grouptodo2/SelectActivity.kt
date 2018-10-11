@@ -8,13 +8,14 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_select.*
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 
 class SelectActivity : AppCompatActivity() {
+    var job: Deferred<Unit>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,12 +116,11 @@ class SelectActivity : AppCompatActivity() {
                             setMessage("みんな手を出しました！結果を見に行きますか？")
                             setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                                 // OKをタップしたときの処理
-                                Toast.makeText(context, "Dialog OK", Toast.LENGTH_LONG).show()
-                                isStartRef.setValue(true)
-                                val intent = Intent(this@SelectActivity,ResultActivity::class.java)
-                                val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
-                                intent.putExtra(SelectActivity.KEY_SELECT,state)
-                                startActivity(intent)
+                                // async関数の戻り（Deferred型）を受け取る
+                                job = async {
+                                    // myTaskメソッドの呼び出し　非同期処理
+                                    myTask(roomname,name,isOwner,isStartRef)
+                                }
                             })
                             setNegativeButton("Cancel", null)
                             show()
@@ -147,8 +147,7 @@ class SelectActivity : AppCompatActivity() {
                             setMessage("結果が出ました！見に行きますか？")
                             setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                                 // OKをタップしたときの処理
-                                Toast.makeText(context, "Dialog OK", Toast.LENGTH_LONG).show()
-                                isStartRef.setValue(true)
+
 
                                 val intent = Intent(this@SelectActivity,ResultActivity::class.java)
                                 val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
@@ -167,6 +166,23 @@ class SelectActivity : AppCompatActivity() {
             })
 
         }
+    }
+    private suspend fun myTask(roomname:String,name:String,isOwner:Boolean,isStartRef: DatabaseReference) {
+
+        async(UI) {
+            isStartRef.setValue(true)
+        }
+
+        Thread.sleep(1000)
+
+        async(UI) {
+            val intent = Intent(this@SelectActivity,ResultActivity::class.java)
+            val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
+            intent.putExtra(SelectActivity.KEY_SELECT,state)
+            startActivity(intent)
+        }
+
+
     }
     companion object {
         private val FIREBASE_URL = "https://grouptodo-4234b.firebaseio.com"

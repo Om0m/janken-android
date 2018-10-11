@@ -45,7 +45,7 @@ class ResultActivity : AppCompatActivity() {
         val tv_result = TextView(this)
         tv_result.textSize = 8 * sp
         tv_result.layoutParams = LayoutParams(wContent, wContent)
-        layout.addView(tv_result)
+        //layout.addView(tv_result)
 
         val btn_Select = Button(this@ResultActivity)
         val btn_Main = Button(this@ResultActivity)
@@ -63,12 +63,18 @@ class ResultActivity : AppCompatActivity() {
             isOwner = state.isOwner
         }
 
+        val ownerRef = FirebaseDatabase.getInstance().getReference("room/"+roomname+"/owner")
+
+
         val ResultRef = FirebaseDatabase.getInstance().getReference("room/"+roomname+"/result/"+name)
         ResultRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                layout.removeAllViews()
+
                 val result = snapshot.value
                 val name_snapshot = snapshot.key
                 tv_result.text = name_snapshot + "さんの結果は" + result
+                layout.addView(tv_result)
                 Log.w("value", "result=" + result +" roomname = "+roomname)
 
                 // Instantiation of Button
@@ -115,6 +121,12 @@ class ResultActivity : AppCompatActivity() {
         }
 
         btn_Main.setOnClickListener{
+
+            //ルームを削除 ownerのみ
+            if(isOwner) {
+                val ResultRef = FirebaseDatabase.getInstance().getReference("room/" + roomname)
+                ResultRef.removeValue()
+            }
             // アクティビティに遷移
             val intent = Intent(this@ResultActivity,MainActivity::class.java)
             val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
@@ -122,7 +134,34 @@ class ResultActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        ownerRef.removeEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                AlertDialog.Builder(this@ResultActivity).apply {
+                    setTitle("お知らせ")
+                    setMessage("部屋が削除されました。")
+                    setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                        // OKをタップしたときの処理
+
+                        // アクティビティに遷移
+                        val intent = Intent(this@ResultActivity,MainActivity::class.java)
+                        val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
+                        intent.putExtra(KEY_RESULT_MAIN,state)
+                        startActivity(intent)
+                    })
+                    //setNegativeButton("Cancel", null)
+                    show()
+                }
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("error", "Failed to read value.", error.toException())
+            }
+        })
+
     }
+
+
     companion object {
         private val FIREBASE_URL = "https://grouptodo-4234b.firebaseio.com"
         const val KEY_RESULT = "com.example.om.grouptodo2-SelectFromResult"
