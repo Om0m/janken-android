@@ -1,4 +1,4 @@
-package com.example.om.grouptodo2
+package com.sample.janken
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -46,8 +46,8 @@ class MakeroomActivity : AppCompatActivity() {
                 memberRef.child(ownername).setValue(ownername)
 
                 //部屋を作成して手を選択するアクティビティに遷移
-                val intent = Intent(this,SelectActivity::class.java)
-                val state = DataState(roomname,ownername,true)
+                val intent = Intent(this, SelectActivity::class.java)
+                val state = DataState(roomname, ownername, true)
                 intent.putExtra(KEY,state)
                 startActivity(intent)
 

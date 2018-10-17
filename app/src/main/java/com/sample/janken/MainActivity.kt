@@ -1,17 +1,13 @@
-package com.example.om.grouptodo2
+package com.sample.janken
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 
 
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 import java.util.HashMap
@@ -42,13 +38,13 @@ class MainActivity : AppCompatActivity() {
 
         btnMake.setOnClickListener{
             Log.d(TAG, "btnmake pressed")
-            val intent = Intent(this,MakeroomActivity::class.java)
+            val intent = Intent(this, MakeroomActivity::class.java)
             intent.putExtra(KEY,editname.text.toString())
             startActivity(intent)
         }
 
         btnEnter.setOnClickListener{
-            val intent = Intent(this,EnterroomActivity::class.java)
+            val intent = Intent(this, EnterroomActivity::class.java)
             intent.putExtra(KEY2,editname.text.toString())
             startActivity(intent)
         }

@@ -1,4 +1,4 @@
-package com.example.om.grouptodo2
+package com.sample.janken
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -10,13 +10,9 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_enterroom.*
-import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
-import java.io.Serializable
-import java.util.HashMap
 
 class EnterroomActivity : AppCompatActivity() {
     internal var mHandler = Handler()
@@ -113,8 +109,8 @@ class EnterroomActivity : AppCompatActivity() {
                         memberRef.child(username).setValue(username)
 
                         // アクティビティに遷移
-                        val intent = Intent(this@EnterroomActivity,SelectActivity::class.java)
-                        val state = DataState(roomname,username,false)      //DataStateの記述はMakeroomActivityに記述
+                        val intent = Intent(this@EnterroomActivity, SelectActivity::class.java)
+                        val state = DataState(roomname, username, false)      //DataStateの記述はMakeroomActivityに記述
                         intent.putExtra(KEY_ENTER,state)
                         startActivity(intent)
                     })

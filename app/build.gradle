@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.om.grouptodo2"
+        applicationId "com.sample.janken"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1

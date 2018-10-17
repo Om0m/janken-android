@@ -1,4 +1,4 @@
-package com.example.om.grouptodo2
+package com.sample.janken
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -149,9 +149,9 @@ class SelectActivity : AppCompatActivity() {
                                 // OKをタップしたときの処理
 
 
-                                val intent = Intent(this@SelectActivity,ResultActivity::class.java)
-                                val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
-                                intent.putExtra(SelectActivity.KEY_SELECT,state)
+                                val intent = Intent(this@SelectActivity, ResultActivity::class.java)
+                                val state = DataState(roomname, name, isOwner)      //DataStateの記述はMakeroomActivityに記述
+                                intent.putExtra(KEY_SELECT,state)
                                 startActivity(intent)
                             })
                             setNegativeButton("いいえ", null)
@@ -176,9 +176,9 @@ class SelectActivity : AppCompatActivity() {
         Thread.sleep(1000)
 
         async(UI) {
-            val intent = Intent(this@SelectActivity,ResultActivity::class.java)
-            val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
-            intent.putExtra(SelectActivity.KEY_SELECT,state)
+            val intent = Intent(this@SelectActivity, ResultActivity::class.java)
+            val state = DataState(roomname, name, isOwner)      //DataStateの記述はMakeroomActivityに記述
+            intent.putExtra(KEY_SELECT,state)
             startActivity(intent)
         }
 

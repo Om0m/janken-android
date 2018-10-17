@@ -1,4 +1,4 @@
-package com.example.om.grouptodo2
+package com.sample.janken
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -11,12 +11,10 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.LinearLayout.*
 import android.widget.TextView
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_result.*
 
 class ResultActivity : AppCompatActivity() {
 
@@ -112,8 +110,8 @@ class ResultActivity : AppCompatActivity() {
             }
 
             // アクティビティに遷移
-            val intent = Intent(this@ResultActivity,SelectActivity::class.java)
-            val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
+            val intent = Intent(this@ResultActivity, SelectActivity::class.java)
+            val state = DataState(roomname, name, isOwner)      //DataStateの記述はMakeroomActivityに記述
             intent.putExtra(KEY_RESULT,state)
             startActivity(intent)
 
@@ -128,8 +126,8 @@ class ResultActivity : AppCompatActivity() {
                 ResultRef.removeValue()
             }
             // アクティビティに遷移
-            val intent = Intent(this@ResultActivity,MainActivity::class.java)
-            val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
+            val intent = Intent(this@ResultActivity, MainActivity::class.java)
+            val state = DataState(roomname, name, isOwner)      //DataStateの記述はMakeroomActivityに記述
             intent.putExtra(KEY_RESULT_MAIN,state)
             startActivity(intent)
 
@@ -143,8 +141,8 @@ class ResultActivity : AppCompatActivity() {
                         // OKをタップしたときの処理
 
                         // アクティビティに遷移
-                        val intent = Intent(this@ResultActivity,MainActivity::class.java)
-                        val state = DataState(roomname,name,isOwner)      //DataStateの記述はMakeroomActivityに記述
+                        val intent = Intent(this@ResultActivity, MainActivity::class.java)
+                        val state = DataState(roomname, name, isOwner)      //DataStateの記述はMakeroomActivityに記述
                         intent.putExtra(KEY_RESULT_MAIN,state)
                         startActivity(intent)
                     })
